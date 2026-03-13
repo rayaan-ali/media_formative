@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Resistance Report</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Georgia, serif; background: #f4f4f0; color: #1a1a1a; }
+
+    .site-header {
+      background: #C0392B;
+      padding: 0 1rem;
+      border-bottom: 4px solid #E8B400;
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(232,180,0,0.3);
+    }
+    .site-name {
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: Arial, sans-serif;
+    }
+    .site-date {
+      color: rgba(255,255,255,0.7);
+      font-size: 11px;
+      font-family: Arial, sans-serif;
+    }
+    .nav {
+      display: flex;
+      gap: 1.5rem;
+      padding: 0.6rem 0;
+    }
+    .nav a {
+      color: rgba(255,255,255,0.85);
+      font-size: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      font-family: Arial, sans-serif;
+    }
+    .nav a:hover { color: #E8B400; }
+
+    .hero {
+      background: #1a1a1a;
+      padding: 3rem 1rem;
+      border-bottom: 4px solid #E8B400;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: #C0392B;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      margin-bottom: 1rem;
+      font-family: Arial, sans-serif;
+    }
+    .hero h1 {
+      color: #ffffff;
+      font-size: 32px;
+      font-weight: normal;
+      line-height: 1.25;
+      max-width: 700px;
+      margin-bottom: 1rem;
+      font-family: Georgia, serif;
+    }
+    .hero h1 span { color: #E8B400; }
+    .hero-meta {
+      color: rgba(255,255,255,0.5);
+      font-size: 12px;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+    .hero-meta .author { color: #E8B400; font-weight: bold; }
+
+    .content-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 2rem;
+    }
+
+    .lead-para {
+      font-size: 18px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      border-left: 4px solid #C0392B;
+      padding-left: 1rem;
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    .article-text {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #2a2a2a;
+      margin-bottom: 1.5rem;
+    }
+
+    .placeholder-block {
+      background: #f0ece0;
+      border: 1px dashed #aaa;
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: #666;
+      font-size: 14px;
+      line-height: 1.6;
+      font-family: Arial, sans-serif;
+    }
+    .placeholder-block strong {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #C0392B;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-heading {
+      font-size: 20px;
+      font-weight: normal;
+      color: #1a1a1a;
+      border-bottom: 2px solid #E8B400;
+      padding-bottom: 0.4rem;
+      margin: 2rem 0 1rem;
+      font-family: Georgia, serif;
+    }
+
+    .pullquote {
+      border-left: 4px solid #E8B400;
+      background: #f9f5e8;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .pullquote p {
+      font-size: 17px;
+      line-height: 1.6;
+      color: #1a1a1a;
+      font-style: italic;
+    }
+    .pullquote cite {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 12px;
+      color: #C0392B;
+      font-style: normal;
+      font-weight: bold;
+      font-family: Arial, sans-serif;
+    }
+
+    .image-block {
+      background: #2a2a2a;
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 1.5rem 0;
+    }
+    .image-block img {
+      width: 100%;
+      display: block;
+    }
+    .image-placeholder {
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.4);
+      font-size: 13px;
+      border-bottom: 2px solid #C0392B;
+      font-family: Arial, sans-serif;
+    }
+    .image-caption {
+      padding: 0.6rem 1rem;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      font-style: italic;
+      font-family: Arial, sans-serif;
+    }
+
+    .sidebar {}
+    .sidebar-card {
+      background: #ffffff;
+      border: 0.5px solid #ddd;
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-card h3 {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #C0392B;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #E8B400;
+      font-family: Arial, sans-serif;
+    }
+    .key-term {
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 0.5px solid #eee;
+    }
+    .key-term:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .key-term dt {
+      font-size: 13px;
+      font-weight: bold;
+      color: #1a1a1a;
+      margin-bottom: 3px;
+      font-family: Arial, sans-serif;
+    }
+    .key-term dd {
+      font-size: 12px;
+      color: #555;
+      line-height: 1.5;
+      font-family: Arial, sans-serif;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 0.5px solid #eee;
+    }
+    .timeline-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .timeline-year {
+      background: #C0392B;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 3px;
+      height: fit-content;
+      white-space: nowrap;
+      font-family: Arial, sans-serif;
+    }
+    .timeline-text {
+      font-size: 12px;
+      color: #555;
+      line-height: 1.5;
+      font-family: Arial, sans-serif;
+    }
+
+    .works-cited {
+      font-size: 13px;
+      line-height: 1.8;
+      color: #333;
+      font-family: Arial, sans-serif;
+    }
+    .works-cited p {
+      padding-left: 2em;
+      text-indent: -2em;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer {
+      background: #1a1a1a;
+      border-top: 4px solid #C0392B;
+      padding: 1.5rem 2rem;
+      margin-top: 2rem;
+    }
+    .footer p {
+      color: rgba(255,255,255,0.4);
+      font-size: 11px;
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+    .footer span { color: #E8B400; }
+
+    @media (max-width: 650px) {
+      .content-wrap { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-top">
+      <span class="site-name">Media Formative</span>
+      <span class="site-date">March 2026 &nbsp;|&nbsp; Indigenous Resistance</span>
+    </div>
+    <nav class="nav">
+      <a href="#">Land Rights</a>
+      <a href="#">Resistance</a>
+      <a href="#">Communities</a>
+      <a href="#">Treaties</a>
+      <a href="#">Take Action</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <span class="hero-tag">Indigenous Resistance</span>
+    <h1>Decades of Promises: <span>Indigenous Land Sovereignty</span> Ignored Despite International Law</h1>
+    <div class="hero-meta">
+      <span class="author">Rayaan Ali</span>
+      <span>|</span>
+      <span>March 2026</span>
+      <span>|</span>
+      <span>Estimated: 10 min read</span>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+    <article class="article-body">
+
+      <!-- LEAD PARAGRAPH - Write 2-3 sentences: who, what, where, when, why -->
+      <p class="lead-para">
+        It took centuries of waiting and being ignored, for decades of active resistance. Land sovereignty is an unresolved issue, the Mohawk waiting since 1761, First Nations waiting for more than two centuries. Indigenous people now speak louder than ever through resistance by the media, protests, documentation to hold the government accountable to the laws described in UNDRIP. So when will sovereignty and rights be recognized on unceded land?
+      </p>
+
+      <!-- IMAGE - Replace placeholder with your actual image -->
+      <div class="image-block">
+        <!-- To add a real image, replace the div below with: <img src="your-image-file.jpg" alt="description"> -->
+        <img src="Paula Longboat.jpg" alt="Paula Longboat holds the Mohawk Warrior Society flag at a Wet'suwet'en solidarity rally">
+        <p class="image-caption">Paula Longboat of Six Nations of Grand River holds the Mohawk Warrior Society Flag at a Wet’suwet’en solidarity rally in Ottawa, February 2020 (Mathew Kupfer / CBC News)</p>
+      </div>
+      <p class="article-text">Alexis Odjick speaks to the government on how reconciliation has become lip service, and that the time to speak is now: "We're out here today to show that we're no longer going to be silenced" (Kupfer).</p>
+<p class="article-text">Paula Longboat says "They said, mum, we're not going to have anything if we don't stand up and say something now" (Kupfer), emphasizing how children and our next generation continue to stand for sovereignty of their land.</p>
+
+      <h2 class="section-heading">A pattern centuries in the making</h2>
+
+      <!-- BODY SECTION 1 - Adapt your barrier brainstorming paragraph here -->
+      <div class="placeholder-block">
+        <strong>Replace this with your writing</strong>
+Throughout the timeline, Indigenous land rights and sovereignty are consistently not recognized by Canada. The Kanesatake Resistance was primarily fueled by the industrial land development of a golf course on unceded land and an unrecognition of disputed land throughout centuries. The unrecognized land of Wet’suwet’en was restricted by pipeline construction. The BC provincial government unethically bypassed the Hereditary Chiefs by making an agreement with band councils leading to national protests. The land of the Wolf Lake First Nation petitioned the crown for over 200 years, still left without reserve land or modern treaty. Every resistance pushes back on refusal to recognize Indigenous land rights, sovereignty, and consent. 
+      </div>
+
+      <div class="pullquote">
+        <p>"Algonquin chiefs have petitioned the Crown for land for more than two hundred years. Canada has been on notice for two centuries."</p>
+        <cite>— Chief Linda Robinson, Wolf Lake First Nation (APTN News, Feb. 2026)</cite>
+      </div>
+
+      <h2 class="section-heading">Resistance as visibility</h2>
+
+      <!-- BODY SECTION 2 - Adapt your awareness brainstorming paragraph here -->
+      <div class="placeholder-block">
+        <strong>Replace this with your writing</strong>
+        Your awareness paragraph — how resistance exposes inequity to Canadians. Criminalization of Wet'suwet'en defenders, Amnesty International, 2020 national protests.
+      </div>
+
+      <div class="pullquote">
+        <p>"Without a reserve, our members are excluded from infrastructure, housing and essential services. Services without land is not a remedy."</p>
+        <cite>— Chief Linda Robinson, Wolf Lake First Nation (APTN News, Feb. 2026)</cite>
+      </div>
+
+      <h2 class="section-heading">What needs to change</h2>
+
+      <!-- BODY SECTION 3 - Adapt your action brainstorming paragraph here -->
+      <div class="placeholder-block">
+        <strong>Replace this with your writing</strong>
+        Your action paragraph — UNDRIP, free prior and informed consent, what Canadians can do.
+      </div>
+
+      <h2 class="section-heading">Works cited</h2>
+      <div class="works-cited">
+        <!-- ADD YOUR MLA CITATIONS HERE - example format below -->
+        <p>[Author Last, First. "Article Title." Publication, Date, URL.]</p>
+        <p>[Author Last, First. "Article Title." Publication, Date, URL.]</p>
+        <p>[Author Last, First. "Article Title." Publication, Date, URL.]</p>
+      </div>
+
+    </article>
+
+    <aside class="sidebar">
+
+      <div class="sidebar-card">
+        <h3>Key terms</h3>
+        <dl>
+          <!-- REPLACE THESE WITH YOUR OWN DEFINITIONS -->
+          <div class="key-term">
+            <dt>Ceded</dt>
+            <dd>Land or rights that were surrendered, transferred, or given up </dd>
+          </div>
+          <div class="key-term">
+            <dt>Unceded</dt>
+            <dd>Lands and territories that were never formally surrendered or given up</dd>
+          </div>
+          <div class="key-term">
+            <dt>UNDRIP</dt>
+            <dd>Set the minimum standards for the survival, dignity, and well-being of indigenous people world wide </dd>
+          </div>
+          <div class="key-term">
+            <dt>Reserves</dt>
+            <dd>Land set aside by the government for Indigenous peoples</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Timeline of resistance</h3>
+        <div class="timeline-item">
+          <span class="timeline-year">1761</span>
+          <p class="timeline-text">This year, the Mohawk started pushing for recognition of their rights to land</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">1990</span>
+          <p class="timeline-text">The Kanesatake resistance took place for 78 days between Mohawk protests, RCMP, Quebec police, and the Canadian Army</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2007</span>
+          <p class="timeline-text">On September 13th, UNDRIP was implemented in the General assembly. However, Canada voted against it.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2018</span>
+          <p class="timeline-text">The BC supreme court made it illegal for Wet’suwet’en land defenders to block pipeline construction in their own territory.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2020</span>
+          <p class="timeline-text">National protests erupted to defend the land despite potential legal charges such as arrests</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2021</span>
+          <p class="timeline-text">UNDRIP became law in Canada.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2026</span>
+          <p class="timeline-text">Wolf Lake First Nations continue a 2 century land claim battle for their land rights.</p>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <footer class="footer">
+    <p>The Resistance Report &nbsp;|&nbsp; <span>Centring Indigenous voices in Canada</span> &nbsp;|&nbsp; Created for NBE 3U</p>
+  </footer>
+
+</body>
+</html>
